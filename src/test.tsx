@@ -6,19 +6,7 @@ import ReviewDialog from "@/components/reviews/review-dialog";
 
 
 export default function RepoDetailClient({ repoId, fullName }: { repoId: string; fullName: string }) {
-  const [tab, setTab] = useState<"pulls" | "reviews">("pulls");
-  const [prPage, setPrPage] = useState(1);
-  const [rvPage, setRvPage] = useState(1);
-  const [state, setState] = useState<"open" | "closed" | "all">("open");
-  const [sort, setSort] = useState<"created" | "updated" | "popularity" | "long-running">("updated");
-  const [direction, setDirection] = useState<"asc" | "desc">("desc");
-  const prQuery = trpc.pulls.list.useQuery({ fullName, state, sort, direction, page: prPage, perPage: 10 });
-  const rvQuery = trpc.reviews.listByRepo.useQuery({ repositoryId: repoId, page: rvPage, perPage: 10 });
-  const [openPR, setOpenPR] = useState<number | null>(null);
-  const prDetail = trpc.pulls.detail.useQuery(
-    openPR ? { fullName, number: openPR } : { fullName, number: 1 },
-    { enabled: openPR !== null }
-  );
+
   const [filesPage, setFilesPage] = useState(1);
   const prFiles = trpc.pulls.files.useQuery(
     openPR ? { fullName, number: openPR, page: filesPage, perPage: 30 } : { fullName, number: 1, page: 1, perPage: 30 },
