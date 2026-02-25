@@ -15,15 +15,7 @@ export default function RepoDetailClient({ repoId, fullName }: { repoId: string;
 
   const doCreatePR = async () => {
 
-    try {
-      const res = await createPr.mutateAsync({
-        fullName,
-        title: newTitle,
-        base: newBase,
-        head,
-        body: newBody || undefined,
-        draft: newDraft,
-      });
+
       setNewOpen(false);
       setNewTitle("");
       setNewBody("");
