@@ -12,27 +12,7 @@ export default function RepoDetailClient({ repoId, fullName }: { repoId: string;
     openPR ? { fullName, number: openPR, page: filesPage, perPage: 30 } : { fullName, number: 1, page: 1, perPage: 30 },
     { enabled: openPR !== null }
   );
-  const branches = trpc.pulls.branches.useQuery({ fullName }, { staleTime: 60_000 });
-  const createPr = trpc.pulls.create.useMutation();
-  const [newOpen, setNewOpen] = useState(false);
-  const [newTitle, setNewTitle] = useState("");
-  const [newBody, setNewBody] = useState("");
-  const [newBase, setNewBase] = useState("");
-  const [newHead, setNewHead] = useState("");
-  const [newDraft, setNewDraft] = useState(false);
-  const [useForkHead, setUseForkHead] = useState(false);
-  const [forkHead, setForkHead] = useState("");
-  const compare = trpc.pulls.compare.useQuery(
-    {
-      fullName,
-      base: newBase,
-      head: useForkHead ? forkHead : newHead,
-    },
-    {
-      enabled: newOpen && !!newBase && !!(useForkHead ? forkHead : newHead),
-      staleTime: 30_000,
-    }
-  );
+
   const doCreatePR = async () => {
     const head = useForkHead ? forkHead.trim() : newHead.trim();
     if (!newTitle || !newBase || !head) {
