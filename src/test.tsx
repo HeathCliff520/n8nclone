@@ -3,13 +3,7 @@ import { useState } from "react";
 import { trpc } from "@/trpc/client";
 import { Button } from "@/components/ui/button";
 import ReviewDialog from "@/components/reviews/review-dialog";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
-import { Plus, Minus } from "lucide-react";
-import { ArrowLeft, Clock, GitBranch, GitMerge, GitPullRequest } from "lucide-react";
-import { formatRelativeTime } from "@/lib/formatrelativetime";
-import LanguageBadge from "./language-badge";
+
 
 export default function RepoDetailClient({ repoId, fullName }: { repoId: string; fullName: string }) {
   const [tab, setTab] = useState<"pulls" | "reviews">("pulls");
