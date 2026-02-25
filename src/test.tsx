@@ -14,15 +14,7 @@ export default function RepoDetailClient({ repoId, fullName }: { repoId: string;
   );
 
   const doCreatePR = async () => {
-    const head = useForkHead ? forkHead.trim() : newHead.trim();
-    if (!newTitle || !newBase || !head) {
-      toast.error("请完善标题、Base 与 Head");
-      return;
-    }
-    if (useForkHead && !head.includes(":")) {
-      toast.error("从 fork 选择时 Head 格式应为 owner:branch");
-      return;
-    }
+
     try {
       const res = await createPr.mutateAsync({
         fullName,
